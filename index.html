@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MadeToStick Title Generator - Amazon SEO Tool</title>
-    <meta name="description" content="Generate optimized Amazon listing titles for MadeToStick stickers with SEO scoring and mobile preview">
+    <title>MadeToStick Title Generator - Advanced SEO Edition</title>
+    <meta name="description" content="Generate optimized Amazon listing titles for MadeToStick stickers with fandom targeting and emotional hooks">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,7 +22,7 @@
             font-family: 'Space Mono', monospace;
             background: linear-gradient(135deg, #fde047 0%, #fda4af 50%, #93c5fd 100%);
             min-height: 100vh;
-            padding: 2rem;
+            padding: 2rem 1rem;
         }
 
         .container {
@@ -37,6 +37,7 @@
             opacity: 0.2;
             filter: blur(60px);
             animation: pulse 3s ease-in-out infinite;
+            pointer-events: none;
         }
 
         .decoration-1 {
@@ -64,27 +65,24 @@
         /* Header */
         .header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             position: relative;
         }
 
         .header h1 {
             font-family: 'Archivo Black', sans-serif;
-            font-size: 4.5rem;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
             color: white;
             text-shadow: 4px 4px 0px rgba(0,0,0,0.2), 6px 6px 0px rgba(0,0,0,0.1);
             -webkit-text-stroke: 2px rgba(0,0,0,0.1);
-            position: relative;
-            display: inline-block;
         }
 
         .header p {
             font-family: 'Space Mono', monospace;
-            font-size: 1.25rem;
+            font-size: clamp(1rem, 2vw, 1.25rem);
             font-weight: 700;
             color: #1f2937;
-            margin-top: 1rem;
-            letter-spacing: 0.05em;
+            margin-top: 0.5rem;
         }
 
         /* Grid */
@@ -98,9 +96,6 @@
         @media (max-width: 968px) {
             .grid {
                 grid-template-columns: 1fr;
-            }
-            .header h1 {
-                font-size: 3rem;
             }
         }
 
@@ -168,7 +163,8 @@
         }
 
         input[type="text"],
-        select {
+        select,
+        textarea {
             width: 100%;
             padding: 0.75rem 1rem;
             border: 3px solid #d1d5db;
@@ -179,11 +175,53 @@
             transition: all 0.2s;
         }
 
+        textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
         input[type="text"]:focus,
-        select:focus {
+        select:focus,
+        textarea:focus {
             outline: none;
             border-color: #ec4899;
             box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.2);
+        }
+
+        /* Checkbox group */
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            background: #f9fafb;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .checkbox-item:hover {
+            background: #f3f4f6;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 1.25rem;
+            height: 1.25rem;
+            margin-right: 0.5rem;
+            cursor: pointer;
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            text-transform: none;
+            font-size: 0.875rem;
+            cursor: pointer;
         }
 
         /* Generate button */
@@ -277,6 +315,7 @@
         .metrics-badges {
             display: flex;
             gap: 0.75rem;
+            flex-wrap: wrap;
         }
 
         .badge {
@@ -304,6 +343,11 @@
         .badge-seo-low {
             background: #fed7aa;
             color: #9a3412;
+        }
+
+        .badge-strategy {
+            background: #e0e7ff;
+            color: #4338ca;
         }
 
         .copy-btn {
@@ -431,6 +475,18 @@
         ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(to bottom, #db2777, #7c3aed);
         }
+
+        .section-header {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
     </style>
 </head>
 <body>
@@ -441,7 +497,7 @@
         <!-- Header -->
         <div class="header">
             <h1>MadeToStick</h1>
-            <p>Title Generator: Amazon Edition</p>
+            <p>Advanced Title Generator: Fandom Edition</p>
         </div>
 
         <!-- Main Grid -->
@@ -458,26 +514,119 @@
                     </h2>
 
                     <form id="titleForm">
-                        <!-- Design Theme -->
+                        <!-- Basic Info -->
                         <div class="form-group">
                             <label for="design">Design Theme *</label>
-                            <input type="text" id="design" placeholder="e.g., Aesthetic Flowers, Retro Gaming, Cute Animals" required>
+                            <input type="text" id="design" placeholder="e.g., Juan Gabriel, Cute Cats, Frida Kahlo" required>
                         </div>
 
-                        <!-- Size -->
-                        <div class="form-group">
-                            <label for="size">Size (inches)</label>
-                            <input type="text" id="size" placeholder="e.g., 3, 2-4, Large">
-                        </div>
-
-                        <!-- Quantity -->
                         <div class="form-group">
                             <label for="quantity">Quantity</label>
-                            <input type="text" id="quantity" placeholder="e.g., 50, 100">
+                            <input type="text" id="quantity" placeholder="e.g., 50, 100, 200">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="size">Size</label>
+                            <input type="text" id="size" placeholder="e.g., 2-3, 3x4">
+                        </div>
+
+                        <!-- Style & Positioning -->
+                        <div class="section-header">🎨 Style & Emotion</div>
+
+                        <div class="form-group">
+                            <label for="artStyle">Art Style</label>
+                            <select id="artStyle">
+                                <option value="">Select style...</option>
+                                <option value="Cute">Cute</option>
+                                <option value="Kawaii">Kawaii</option>
+                                <option value="Chibi">Chibi</option>
+                                <option value="Aesthetic">Aesthetic</option>
+                                <option value="Retro">Retro</option>
+                                <option value="Hand Drawn">Hand Drawn</option>
+                                <option value="Cartoon">Cartoon</option>
+                                <option value="Illustrated">Illustrated</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="emotionalHook">Emotional Hook</label>
+                            <select id="emotionalHook">
+                                <option value="">None (generic)</option>
+                                <option value="Fun">Fun</option>
+                                <option value="Sassy">Sassy</option>
+                                <option value="Tribute">Tribute</option>
+                                <option value="Memorial">Memorial</option>
+                                <option value="Proud">Proud</option>
+                                <option value="Iconic">Iconic</option>
+                                <option value="Legendary">Legendary</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="quote">Quote/Lyric (Optional)</label>
+                            <input type="text" id="quote" placeholder='e.g., "Amor Eterno", "Noa Noa"'>
+                        </div>
+
+                        <!-- Target Audience -->
+                        <div class="section-header">👥 Target Audience</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="aud-kids" value="Kids">
+                                <label for="aud-kids">Kids</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="aud-teens" value="Teens">
+                                <label for="aud-teens">Teens</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="aud-adults" value="Adults">
+                                <label for="aud-adults">Adults</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="aud-girls" value="Girls">
+                                <label for="aud-girls">Girls</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="aud-boys" value="Boys">
+                                <label for="aud-boys">Boys</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="aud-moms" value="Moms">
+                                <label for="aud-moms">Moms</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="aud-teachers" value="Teachers">
+                                <label for="aud-teachers">Teachers</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="aud-fans" value="Fans">
+                                <label for="aud-fans">Music/Pop Fans</label>
+                            </div>
+                        </div>
+
+                        <!-- Occasion -->
+                        <div class="section-header">🎁 Occasion/Use</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="occ-party" value="Party Favors">
+                                <label for="occ-party">Party Favors</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="occ-birthday" value="Birthday Gift">
+                                <label for="occ-birthday">Birthday Gift</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="occ-classroom" value="Classroom Rewards">
+                                <label for="occ-classroom">Classroom Rewards</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="occ-gift" value="Perfect Gift">
+                                <label for="occ-gift">Gift Item</label>
+                            </div>
                         </div>
 
                         <!-- Language -->
-                        <div class="form-group">
+                        <div class="form-group" style="margin-top: 1.5rem;">
                             <label for="language">Language</label>
                             <select id="language">
                                 <option value="english">English</option>
@@ -526,19 +675,19 @@
 
         <!-- Tips Section -->
         <div class="tips-section">
-            <h3>Amazon Title Requirements (2025)</h3>
+            <h3>Data-Driven Title Strategy</h3>
             <div class="tips-grid">
                 <div class="tip-card yellow">
-                    <p style="color: #78350f;">📱 80 Characters Max</p>
-                    <p style="color: #92400e;">Amazon recommends 80 chars or less (not 200!). Mobile screens truncate long titles. First 80 chars = what customers see.</p>
+                    <p style="color: #78350f;">🎯 Power Keywords</p>
+                    <p style="color: #92400e;">Essential: Waterproof Vinyl, Cute/Aesthetic, quantity (50pcs, 100pcs). Avoid specific use cases to maximize search visibility.</p>
                 </div>
                 <div class="tip-card blue">
-                    <p style="color: #1e3a8a;">🎯 Brand Must Be First</p>
-                    <p style="color: #1e40af;">Amazon's required order: Brand → Design → Product Type → Waterproof → Size → Pack. MadeToStick always leads.</p>
+                    <p style="color: #1e3a8a;">❤️ Fandom Optimization</p>
+                    <p style="color: #1e40af;">Nicknames, quotes, emotional hooks = higher conversion. "Juanga", "Amor Eterno", "Tribute" tap fan emotion and drive sales.</p>
                 </div>
                 <div class="tip-card pink">
-                    <p style="color: #831843;">💧 Waterproof Vinyl</p>
-                    <p style="color: #9f1239;">All MadeToStick stickers are waterproof vinyl. "Waterproof" in title = trust signal. Spanish market = 25% of customers.</p>
+                    <p style="color: #831843;">📊 MadeToStick Formula</p>
+                    <p style="color: #9f1239;">Always waterproof vinyl. Brand placement varies: bulk = quantity first, fandom = emotion first, premium = MadeToStick first.</p>
                 </div>
             </div>
         </div>
@@ -553,8 +702,11 @@
 
         function generateTitles() {
             const design = document.getElementById('design').value.trim();
-            const size = document.getElementById('size').value.trim();
             const quantity = document.getElementById('quantity').value.trim();
+            const size = document.getElementById('size').value.trim();
+            const artStyle = document.getElementById('artStyle').value;
+            const emotionalHook = document.getElementById('emotionalHook').value;
+            const quote = document.getElementById('quote').value.trim();
             const language = document.getElementById('language').value;
 
             if (!design) {
@@ -562,92 +714,263 @@
                 return;
             }
 
-            const titles = [];
+            // Collect checked items
+            const audiences = Array.from(document.querySelectorAll('[id^="aud-"]:checked')).map(cb => cb.value);
+            const occasions = Array.from(document.querySelectorAll('[id^="occ-"]:checked')).map(cb => cb.value);
+
             const isSpanish = language === 'spanish';
-            
-            // Hardcoded for MadeToStick (vinyl stickers, always waterproof)
+            const titles = [];
+
+            // Constants
             const brand = 'MadeToStick';
             const productType = isSpanish ? 'Calcomanías' : 'Stickers';
             const waterproofText = isSpanish ? 'Impermeables' : 'Waterproof';
+            const vinylText = isSpanish ? 'Vinilo' : 'Vinyl';
+            const decalText = isSpanish ? 'Calcomanías' : 'Decals';
+            const quantityText = quantity ? `${quantity}${isSpanish ? 'pcs' : 'pcs'}` : '';
             const sizeText = size ? `${size}"` : '';
-            const quantityText = quantity ? `${quantity}-Pack` : '';
-
-            // Amazon Order: Brand → Design → Product Type → Waterproof → Size → Pack
             
-            // Strategy 1: Full compliant (all attributes)
-            const parts1 = [brand, design, productType, waterproofText, sizeText, quantityText];
-            titles.push(parts1.filter(p => p).join(' ').trim().replace(/\s+/g, ' '));
+            // Determine if this is fandom/specific or generic
+            const isFandom = emotionalHook || quote;
+            const audienceStr = audiences.join(isSpanish ? ' y ' : ' & ');
+            const occasionStr = occasions[0] || '';
 
-            // Strategy 2: Compact (no size)
-            const parts2 = [brand, design, productType, waterproofText, quantityText];
-            titles.push(parts2.filter(p => p).join(' ').trim().replace(/\s+/g, ' '));
+            if (isFandom) {
+                // FANDOM/SPECIFIC STRATEGY
+                
+                // Strategy 1: Classic fandom with quote
+                if (quote) {
+                    const parts = [
+                        artStyle,
+                        design,
+                        quote ? `"${quote}"` : '',
+                        productType,
+                        '-',
+                        emotionalHook,
+                        waterproofText,
+                        vinylText,
+                        decalText,
+                        sizeText,
+                        quantityText,
+                        audienceStr ? `for ${audienceStr}` : '',
+                        occasionStr
+                    ].filter(p => p && p !== '-' || p === '-');
+                    
+                    titles.push({
+                        text: parts.join(' ').replace(/\s+-\s+/g, ' - ').replace(/\s+/g, ' ').trim(),
+                        strategy: 'Fandom Quote'
+                    });
+                }
 
-            // Strategy 3: Pack emphasis (for bulk value)
-            if (quantity) {
-                const parts3 = [brand, quantityText, design, productType, waterproofText, sizeText];
-                titles.push(parts3.filter(p => p).join(' ').trim().replace(/\s+/g, ' '));
+                // Strategy 2: Emotional hook focus
+                const parts2 = [
+                    artStyle,
+                    design,
+                    productType,
+                    '-',
+                    emotionalHook,
+                    waterproofText,
+                    vinylText,
+                    sizeText,
+                    quantityText,
+                    audienceStr ? `- ${audienceStr}` : ''
+                ].filter(p => p && p !== '-' || p === '-');
+                
+                titles.push({
+                    text: parts2.join(' ').replace(/\s+-\s+/g, ' - ').replace(/\s+/g, ' ').trim(),
+                    strategy: 'Emotional Hook'
+                });
+
+                // Strategy 3: Gift intent
+                if (occasions.length > 0) {
+                    const parts3 = [
+                        occasionStr,
+                        '-',
+                        artStyle,
+                        design,
+                        waterproofText,
+                        vinylText,
+                        productType,
+                        sizeText,
+                        quantityText,
+                        audienceStr ? `for ${audienceStr}` : ''
+                    ].filter(p => p && p !== '-' || p === '-');
+                    
+                    titles.push({
+                        text: parts3.join(' ').replace(/\s+-\s+/g, ' - ').replace(/\s+/g, ' ').trim(),
+                        strategy: 'Gift Intent'
+                    });
+                }
+
+                // Strategy 4: Brand-first premium
+                const parts4 = [
+                    brand,
+                    artStyle,
+                    design,
+                    waterproofText,
+                    vinylText,
+                    productType,
+                    sizeText,
+                    quantityText,
+                    '-',
+                    emotionalHook,
+                    'Art',
+                    audienceStr ? `for ${audienceStr}` : ''
+                ].filter(p => p && p !== '-' || p === '-');
+                
+                titles.push({
+                    text: parts4.join(' ').replace(/\s+-\s+/g, ' - ').replace(/\s+/g, ' ').trim(),
+                    strategy: 'Premium Brand'
+                });
+
+                // Strategy 5: Short tribute
+                const parts5 = [
+                    design,
+                    emotionalHook,
+                    productType,
+                    '-',
+                    waterproofText,
+                    vinylText,
+                    sizeText,
+                    quantityText
+                ].filter(p => p && p !== '-' || p === '-');
+                
+                titles.push({
+                    text: parts5.join(' ').replace(/\s+-\s+/g, ' - ').replace(/\s+/g, ' ').trim(),
+                    strategy: 'Short Tribute'
+                });
+
+            } else {
+                // GENERIC/BULK STRATEGY
+                
+                // Strategy 1: Quantity-first bulk
+                if (quantity) {
+                    const parts = [
+                        quantityText,
+                        artStyle,
+                        vinylText,
+                        productType,
+                        audienceStr ? `for ${audienceStr}` : '',
+                        ',',
+                        waterproofText,
+                        artStyle === 'Aesthetic' ? '' : 'Aesthetic',
+                        decalText,
+                        sizeText,
+                        occasionStr ? `- ${occasionStr}` : ''
+                    ].filter(p => p);
+                    
+                    titles.push({
+                        text: parts.join(' ').replace(/\s+/g, ' ').trim(),
+                        strategy: 'Bulk Value'
+                    });
+                }
+
+                // Strategy 2: Design-first with brand
+                const parts2 = [
+                    brand,
+                    artStyle,
+                    design,
+                    waterproofText,
+                    vinylText,
+                    productType,
+                    sizeText,
+                    quantityText,
+                    audienceStr ? `for ${audienceStr}` : ''
+                ].filter(p => p);
+                
+                titles.push({
+                    text: parts2.join(' ').replace(/\s+/g, ' ').trim(),
+                    strategy: 'Brand First'
+                });
+
+                // Strategy 3: Audience focus
+                if (audiences.length > 0) {
+                    const parts3 = [
+                        artStyle,
+                        design,
+                        productType,
+                        'for',
+                        audienceStr,
+                        ',',
+                        waterproofText,
+                        vinylText,
+                        quantityText,
+                        sizeText,
+                        occasionStr ? `- ${occasionStr}` : ''
+                    ].filter(p => p);
+                    
+                    titles.push({
+                        text: parts3.join(' ').replace(/\s+/g, ' ').trim(),
+                        strategy: 'Audience Focus'
+                    });
+                }
+
+                // Strategy 4: Waterproof emphasis
+                const parts4 = [
+                    waterproofText,
+                    vinylText,
+                    artStyle,
+                    design,
+                    productType,
+                    quantityText,
+                    sizeText,
+                    audienceStr ? `for ${audienceStr}` : '',
+                    occasionStr ? `- ${occasionStr}` : ''
+                ].filter(p => p);
+                
+                titles.push({
+                    text: parts4.join(' ').replace(/\s+/g, ' ').trim(),
+                    strategy: 'Waterproof Lead'
+                });
+
+                // Strategy 5: Style emphasis
+                const parts5 = [
+                    artStyle,
+                    design,
+                    waterproofText,
+                    vinylText,
+                    productType,
+                    sizeText,
+                    quantityText,
+                    audienceStr ? `- ${audienceStr}` : '',
+                    occasionStr
+                ].filter(p => p);
+                
+                titles.push({
+                    text: parts5.join(' ').replace(/\s+/g, ' ').trim(),
+                    strategy: 'Style First'
+                });
             }
 
-            // Strategy 4: Waterproof emphasis (key benefit first after brand)
-            const parts4 = [brand, waterproofText, design, productType, sizeText, quantityText];
-            titles.push(parts4.filter(p => p).join(' ').trim().replace(/\s+/g, ' '));
-
-            // Strategy 5: Short & sweet (design + product only)
-            const parts5 = [brand, design, productType, waterproofText];
-            titles.push(parts5.filter(p => p).join(' ').trim().replace(/\s+/g, ' '));
-
-            // Remove duplicates
-            const uniqueTitles = [...new Set(titles)].filter(t => t.length > 0);
-
+            // Remove duplicates and display
+            const uniqueTitles = Array.from(new Map(titles.map(t => [t.text, t])).values());
             displayResults(uniqueTitles);
         }
 
         function getSEOScore(title) {
-            let score = 100; // Start at perfect, deduct for violations
+            let score = 100;
             const violations = [];
             
-            // CRITICAL: Brand must be first (Amazon requirement)
-            if (!title.toLowerCase().startsWith('madetostick')) {
-                score -= 30;
-                violations.push('Brand not first');
-            }
-            
-            // RECOMMENDED: 80 chars or less for mobile (Amazon guideline)
-            if (title.length > 80) {
-                score -= 10;
-                violations.push(`${title.length} chars (80+ truncates on mobile)`);
-            }
-            
-            // Check for prohibited special characters (!, $, ?, _, {, }, ^, ¬, ¦, |)
-            const prohibitedChars = /[!$?_{}^¬¦|]/;
-            if (prohibitedChars.test(title)) {
-                score -= 20;
-                violations.push('Prohibited special character');
-            }
-            
-            // Check for word repetition (no word more than twice)
-            const words = title.toLowerCase().split(/\s+/);
-            const wordCount = {};
-            words.forEach(word => {
-                wordCount[word] = (wordCount[word] || 0) + 1;
-            });
-            const repeated = Object.entries(wordCount).filter(([word, count]) => 
-                count > 2 && word !== 'for' && word !== 'and' && word !== 'the'
-            );
-            if (repeated.length > 0) {
+            // Check length (120-150 is sweet spot for ranking, 80 for compliance)
+            if (title.length > 150) {
                 score -= 15;
-                violations.push(`Word repetition: ${repeated[0][0]}`);
+                violations.push(`${title.length} chars (over 150)`);
+            } else if (title.length > 120) {
+                // This is actually good for SEO, no penalty
+            } else if (title.length <= 80) {
+                score += 5; // Bonus for Amazon compliance
             }
             
-            // Bonus: Key product term in first 50 chars
-            const first50 = title.slice(0, 50).toLowerCase();
-            if (first50.includes('sticker') || first50.includes('calcomanía')) {
-                score += 5;
-            }
+            // Check for power keywords
+            const hasWaterproof = /waterproof|impermeable/i.test(title);
+            const hasVinyl = /vinyl|vinilo/i.test(title);
             
-            // Bonus: Waterproof mentioned (trust signal)
-            if (title.toLowerCase().includes('waterproof') || title.toLowerCase().includes('impermeable')) {
-                score += 5;
+            if (hasWaterproof) score += 10;
+            if (hasVinyl) score += 5;
+            
+            // Check for brand
+            if (/madetostick/i.test(title.slice(0, 50))) {
+                score += 10;
             }
             
             return { score: Math.max(0, Math.min(100, score)), violations };
@@ -672,13 +995,15 @@
 
             const html = `
                 <div class="results-container">
-                    ${titles.map((title, index) => {
+                    ${titles.map((titleObj, index) => {
+                        const title = titleObj.text;
+                        const strategy = titleObj.strategy;
                         const mobilePreview = title.slice(0, 80);
                         const rest = title.slice(80);
                         const scoreData = getSEOScore(title);
                         const score = scoreData.score;
                         const violations = scoreData.violations;
-                        const seoClass = score >= 90 ? 'badge-seo-high' : score >= 70 ? 'badge-seo-med' : 'badge-seo-low';
+                        const seoClass = score >= 85 ? 'badge-seo-high' : score >= 70 ? 'badge-seo-med' : 'badge-seo-low';
                         
                         return `
                             <div class="title-card">
@@ -689,12 +1014,11 @@
                                 <div class="title-metrics">
                                     <div class="metrics-badges">
                                         <span class="badge badge-chars">${title.length} chars</span>
-                                        <span class="badge ${seoClass}">
-                                            ${score >= 90 ? '✓ Amazon Compliant' : `Score: ${score}%`}
-                                        </span>
+                                        <span class="badge ${seoClass}">Score: ${score}%</span>
+                                        <span class="badge badge-strategy">${strategy}</span>
                                     </div>
                                     
-                                    <button class="copy-btn" onclick="copyTitle('${title.replace(/'/g, "\\'")}', ${index})">
+                                    <button class="copy-btn" onclick="copyTitle(\`${title.replace(/`/g, '\\`')}\`, ${index})">
                                         <svg class="icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
                                         </svg>
@@ -702,15 +1026,10 @@
                                     </button>
                                 </div>
                                 
-                                ${violations.length > 0 ? `
-                                    <div class="mobile-indicator" style="background: #fef3c7; border: 1px solid #fbbf24;">
-                                        <div class="mobile-indicator-dot" style="background: #f59e0b;"></div>
-                                        ⚠️ ${violations.join(' • ')}
-                                    </div>
-                                ` : title.length > 80 ? `
-                                    <div class="mobile-indicator">
-                                        <div class="mobile-indicator-dot"></div>
-                                        First 80 chars (pink) = Amazon mobile view
+                                ${violations.length > 0 || rest ? `
+                                    <div class="mobile-indicator" style="${violations.length > 0 ? 'background: #fef3c7; border: 1px solid #fbbf24;' : ''}">
+                                        <div class="mobile-indicator-dot" style="${violations.length > 0 ? 'background: #f59e0b;' : ''}"></div>
+                                        ${violations.length > 0 ? '⚠️ ' + violations.join(' • ') : 'First 80 chars (pink) = Amazon mobile view'}
                                     </div>
                                 ` : ''}
                             </div>
