@@ -186,86 +186,6 @@
             box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.2);
         }
 
-        /* Toggle row */
-        .toggle-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1.25rem;
-        }
-
-        .toggle-card {
-            padding: 1rem;
-            border-radius: 12px;
-            border: 2px solid;
-        }
-
-        .toggle-card.waterproof {
-            background: #dbeafe;
-            border-color: #93c5fd;
-        }
-
-        .toggle-card.language {
-            background: #f3e8ff;
-            border-color: #d8b4fe;
-        }
-
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            font-weight: 700;
-            color: #1f2937;
-            text-transform: none;
-            margin: 0;
-        }
-
-        input[type="checkbox"] {
-            width: 1.25rem;
-            height: 1.25rem;
-            margin-right: 0.75rem;
-            cursor: pointer;
-        }
-
-        .language-select {
-            margin-top: 0.25rem;
-            padding: 0.375rem 0.5rem;
-            border: 2px solid #c084fc;
-            font-size: 0.875rem;
-        }
-
-        /* Positioning buttons */
-        .positioning-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.5rem;
-        }
-
-        .positioning-btn {
-            padding: 0.75rem 1rem;
-            border: none;
-            border-radius: 12px;
-            font-family: 'Space Mono', monospace;
-            font-weight: 700;
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: #f3f4f6;
-            color: #374151;
-        }
-
-        .positioning-btn:hover {
-            background: #e5e7eb;
-            transform: scale(1.05);
-        }
-
-        .positioning-btn.active {
-            background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
-            color: white;
-            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
-        }
-
         /* Generate button */
         .generate-btn {
             width: 100%;
@@ -556,50 +476,13 @@
                             <input type="text" id="quantity" placeholder="e.g., 50, 100">
                         </div>
 
-                        <!-- Material -->
+                        <!-- Language -->
                         <div class="form-group">
-                            <label for="material">Material</label>
-                            <select id="material">
-                                <option value="vinyl">Vinyl</option>
-                                <option value="holographic">Holographic</option>
-                                <option value="matte">Matte</option>
-                                <option value="glossy">Glossy</option>
-                                <option value="puffy">Puffy/3D</option>
-                                <option value="clear">Clear/Transparent</option>
+                            <label for="language">Language</label>
+                            <select id="language">
+                                <option value="english">English</option>
+                                <option value="spanish">Español</option>
                             </select>
-                        </div>
-
-                        <!-- Use Case -->
-                        <div class="form-group">
-                            <label for="useCase">Use Case</label>
-                            <select id="useCase">
-                                <option value="">Select use case</option>
-                                <option value="laptop">Laptop</option>
-                                <option value="waterBottle">Water Bottle</option>
-                                <option value="phone">Phone Case</option>
-                                <option value="car">Car/Bumper</option>
-                                <option value="notebook">Notebook/Planner</option>
-                                <option value="skateboard">Skateboard</option>
-                                <option value="general">General/Multi-use</option>
-                            </select>
-                        </div>
-
-                        <!-- Toggles Row -->
-                        <div class="toggle-row">
-                            <div class="toggle-card waterproof">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="waterproof" checked>
-                                    <span>Waterproof</span>
-                                </label>
-                            </div>
-
-                            <div class="toggle-card language">
-                                <label style="font-size: 0.75rem; margin-bottom: 0.25rem;">Language</label>
-                                <select id="language" class="language-select">
-                                    <option value="english">English</option>
-                                    <option value="spanish">Español</option>
-                                </select>
-                            </div>
                         </div>
 
                         <!-- Generate Button -->
@@ -651,38 +534,17 @@
                 </div>
                 <div class="tip-card blue">
                     <p style="color: #1e3a8a;">🎯 Brand Must Be First</p>
-                    <p style="color: #1e40af;">Amazon's required order: Brand → Design → Material → Product Type → Attributes → Size/Pack → Use Case. MadeToStick always leads.</p>
+                    <p style="color: #1e40af;">Amazon's required order: Brand → Design → Product Type → Waterproof → Size → Pack. MadeToStick always leads.</p>
                 </div>
                 <div class="tip-card pink">
-                    <p style="color: #831843;">⚠️ No Violations</p>
-                    <p style="color: #9f1239;">No | ! $ ? _ symbols. No word more than 2x. No "Premium/Best" claims. Violations = suppressed listings or auto-corrections.</p>
+                    <p style="color: #831843;">💧 Waterproof Vinyl</p>
+                    <p style="color: #9f1239;">All MadeToStick stickers are waterproof vinyl. "Waterproof" in title = trust signal. Spanish market = 25% of customers.</p>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Material options
-        const materialOptions = {
-            vinyl: 'Vinyl',
-            holographic: 'Holographic',
-            matte: 'Matte',
-            glossy: 'Glossy',
-            puffy: 'Puffy/3D',
-            clear: 'Clear/Transparent'
-        };
-
-        // Use case options
-        const useCaseOptions = {
-            laptop: 'Laptop',
-            waterBottle: 'Water Bottle',
-            phone: 'Phone Case',
-            car: 'Car/Bumper',
-            notebook: 'Notebook/Planner',
-            skateboard: 'Skateboard',
-            general: 'General/Multi-use'
-        };
-
         // Form submission
         document.getElementById('titleForm').addEventListener('submit', (e) => {
             e.preventDefault();
@@ -693,9 +555,6 @@
             const design = document.getElementById('design').value.trim();
             const size = document.getElementById('size').value.trim();
             const quantity = document.getElementById('quantity').value.trim();
-            const material = document.getElementById('material').value;
-            const waterproof = document.getElementById('waterproof').checked;
-            const useCase = document.getElementById('useCase').value;
             const language = document.getElementById('language').value;
 
             if (!design) {
@@ -706,53 +565,36 @@
             const titles = [];
             const isSpanish = language === 'spanish';
             
-            // Amazon-compliant components (Brand always first!)
+            // Hardcoded for MadeToStick (vinyl stickers, always waterproof)
             const brand = 'MadeToStick';
             const productType = isSpanish ? 'Calcomanías' : 'Stickers';
-            const materialText = materialOptions[material];
-            const waterproofText = waterproof ? (isSpanish ? 'Impermeables' : 'Waterproof') : '';
+            const waterproofText = isSpanish ? 'Impermeables' : 'Waterproof';
             const sizeText = size ? `${size}"` : '';
             const quantityText = quantity ? `${quantity}-Pack` : '';
-            const useCaseText = useCase ? (isSpanish ? `para ${useCaseOptions[useCase]}` : `for ${useCaseOptions[useCase]}`) : '';
 
-            // Amazon Order: Brand → Design → Material → Product Type → Waterproof → Size → Pack → Use Case
+            // Amazon Order: Brand → Design → Product Type → Waterproof → Size → Pack
             
             // Strategy 1: Full compliant (all attributes)
-            const parts1 = [brand, design, materialText, productType, waterproofText, sizeText, quantityText, useCaseText];
+            const parts1 = [brand, design, productType, waterproofText, sizeText, quantityText];
             titles.push(parts1.filter(p => p).join(' ').trim().replace(/\s+/g, ' '));
 
-            // Strategy 2: Compact (omit material if standard vinyl)
-            if (material !== 'vinyl') {
-                const parts2 = [brand, design, materialText, productType, waterproofText, quantityText, useCaseText];
-                titles.push(parts2.filter(p => p).join(' ').trim().replace(/\s+/g, ' '));
-            } else {
-                const parts2 = [brand, design, productType, waterproofText, sizeText, quantityText, useCaseText];
-                titles.push(parts2.filter(p => p).join(' ').trim().replace(/\s+/g, ' '));
-            }
+            // Strategy 2: Compact (no size)
+            const parts2 = [brand, design, productType, waterproofText, quantityText];
+            titles.push(parts2.filter(p => p).join(' ').trim().replace(/\s+/g, ' '));
 
-            // Strategy 3: Material emphasis (for specialty products)
-            if (material === 'holographic' || material === 'puffy' || material === 'clear') {
-                const parts3 = [brand, materialText, design, productType, waterproofText, quantityText, sizeText, useCaseText];
+            // Strategy 3: Pack emphasis (for bulk value)
+            if (quantity) {
+                const parts3 = [brand, quantityText, design, productType, waterproofText, sizeText];
                 titles.push(parts3.filter(p => p).join(' ').trim().replace(/\s+/g, ' '));
             }
 
-            // Strategy 4: Pack emphasis (for bulk value)
-            if (quantity) {
-                const parts4 = [brand, quantityText, design, materialText, productType, waterproofText, sizeText, useCaseText];
-                titles.push(parts4.filter(p => p).join(' ').trim().replace(/\s+/g, ' '));
-            }
+            // Strategy 4: Waterproof emphasis (key benefit first after brand)
+            const parts4 = [brand, waterproofText, design, productType, sizeText, quantityText];
+            titles.push(parts4.filter(p => p).join(' ').trim().replace(/\s+/g, ' '));
 
-            // Strategy 5: Waterproof emphasis (key benefit first after brand)
-            if (waterproof) {
-                const parts5 = [brand, waterproofText, design, materialText, productType, sizeText, quantityText, useCaseText];
-                titles.push(parts5.filter(p => p).join(' ').trim().replace(/\s+/g, ' '));
-            }
-
-            // Strategy 6: Use case specific (when important)
-            if (useCase && useCase !== 'general') {
-                const parts6 = [brand, design, productType, waterproofText, materialText, sizeText, quantityText, useCaseText];
-                titles.push(parts6.filter(p => p).join(' ').trim().replace(/\s+/g, ' '));
-            }
+            // Strategy 5: Short & sweet (design + product only)
+            const parts5 = [brand, design, productType, waterproofText];
+            titles.push(parts5.filter(p => p).join(' ').trim().replace(/\s+/g, ' '));
 
             // Remove duplicates
             const uniqueTitles = [...new Set(titles)].filter(t => t.length > 0);
