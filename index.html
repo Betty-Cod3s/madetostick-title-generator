@@ -602,16 +602,6 @@
                             </div>
                         </div>
 
-                        <!-- Positioning -->
-                        <div class="form-group">
-                            <label>Brand Positioning</label>
-                            <div class="positioning-grid">
-                                <button type="button" class="positioning-btn" data-pos="value">Value</button>
-                                <button type="button" class="positioning-btn active" data-pos="mid-range">Mid-Range</button>
-                                <button type="button" class="positioning-btn" data-pos="premium">Premium</button>
-                            </div>
-                        </div>
-
                         <!-- Generate Button -->
                         <button type="submit" class="generate-btn">
                             <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -653,19 +643,19 @@
 
         <!-- Tips Section -->
         <div class="tips-section">
-            <h3>Amazon Title Strategy Notes</h3>
+            <h3>Amazon Title Requirements (2025)</h3>
             <div class="tips-grid">
                 <div class="tip-card yellow">
-                    <p style="color: #78350f;">📱 Mobile First</p>
-                    <p style="color: #92400e;">First 150 characters are all mobile users see. Put your strongest keywords + brand there.</p>
+                    <p style="color: #78350f;">📱 80 Characters Max</p>
+                    <p style="color: #92400e;">Amazon recommends 80 chars or less (not 200!). Mobile screens truncate long titles. First 80 chars = what customers see.</p>
                 </div>
                 <div class="tip-card blue">
-                    <p style="color: #1e3a8a;">🎯 SEO Hierarchy</p>
-                    <p style="color: #1e40af;">Design theme → Material → Use case → Brand. Spanish market is 25% and underserved.</p>
+                    <p style="color: #1e3a8a;">🎯 Brand Must Be First</p>
+                    <p style="color: #1e40af;">Amazon's required order: Brand → Design → Material → Product Type → Attributes → Size/Pack → Use Case. MadeToStick always leads.</p>
                 </div>
                 <div class="tip-card pink">
-                    <p style="color: #831843;">💎 Value Props</p>
-                    <p style="color: #9f1239;">Waterproof = trust. Specialty materials (holographic/puffy) should lead. Quantity = value play.</p>
+                    <p style="color: #831843;">⚠️ No Violations</p>
+                    <p style="color: #9f1239;">No | ! $ ? _ symbols. No word more than 2x. No "Premium/Best" claims. Violations = suppressed listings or auto-corrections.</p>
                 </div>
             </div>
         </div>
@@ -693,18 +683,6 @@
             general: 'General/Multi-use'
         };
 
-        // Positioning state
-        let selectedPositioning = 'mid-range';
-
-        // Positioning buttons
-        document.querySelectorAll('.positioning-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.positioning-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                selectedPositioning = btn.dataset.pos;
-            });
-        });
-
         // Form submission
         document.getElementById('titleForm').addEventListener('submit', (e) => {
             e.preventDefault();
@@ -728,94 +706,109 @@
             const titles = [];
             const isSpanish = language === 'spanish';
             
-            const waterproofText = waterproof ? (isSpanish ? 'Impermeables' : 'Waterproof') : '';
+            // Amazon-compliant components (Brand always first!)
+            const brand = 'MadeToStick';
+            const productType = isSpanish ? 'Calcomanías' : 'Stickers';
             const materialText = materialOptions[material];
-            const quantityText = quantity ? `${quantity} Pack` : '';
-            const useCaseText = useCase ? useCaseOptions[useCase] : '';
+            const waterproofText = waterproof ? (isSpanish ? 'Impermeables' : 'Waterproof') : '';
             const sizeText = size ? `${size}"` : '';
+            const quantityText = quantity ? `${quantity}-Pack` : '';
+            const useCaseText = useCase ? (isSpanish ? `para ${useCaseOptions[useCase]}` : `for ${useCaseOptions[useCase]}`) : '';
 
-            // Strategy 1: Front-load brand + design (mobile-first)
-            if (selectedPositioning === 'premium') {
-                titles.push(
-                    isSpanish
-                        ? `MadeToStick ${design} - Calcomanías ${materialText} Premium ${waterproofText} ${quantityText} ${sizeText} ${useCaseText}`.trim().replace(/\s+/g, ' ')
-                        : `MadeToStick ${design} Premium ${materialText} Stickers ${waterproofText} ${quantityText} ${sizeText} for ${useCaseText}`.trim().replace(/\s+/g, ' ')
-                );
+            // Amazon Order: Brand → Design → Material → Product Type → Waterproof → Size → Pack → Use Case
+            
+            // Strategy 1: Full compliant (all attributes)
+            const parts1 = [brand, design, materialText, productType, waterproofText, sizeText, quantityText, useCaseText];
+            titles.push(parts1.filter(p => p).join(' ').trim().replace(/\s+/g, ' '));
+
+            // Strategy 2: Compact (omit material if standard vinyl)
+            if (material !== 'vinyl') {
+                const parts2 = [brand, design, materialText, productType, waterproofText, quantityText, useCaseText];
+                titles.push(parts2.filter(p => p).join(' ').trim().replace(/\s+/g, ' '));
+            } else {
+                const parts2 = [brand, design, productType, waterproofText, sizeText, quantityText, useCaseText];
+                titles.push(parts2.filter(p => p).join(' ').trim().replace(/\s+/g, ' '));
             }
 
-            // Strategy 2: SEO-heavy (design + use case first)
-            titles.push(
-                isSpanish
-                    ? `${design} Calcomanías ${waterproofText} ${materialText} para ${useCaseText} | MadeToStick ${quantityText} ${sizeText}`.trim().replace(/\s+/g, ' ')
-                    : `${design} Stickers ${waterproofText} ${materialText} for ${useCaseText} | MadeToStick Brand ${quantityText} ${sizeText}`.trim().replace(/\s+/g, ' ')
-            );
+            // Strategy 3: Material emphasis (for specialty products)
+            if (material === 'holographic' || material === 'puffy' || material === 'clear') {
+                const parts3 = [brand, materialText, design, productType, waterproofText, quantityText, sizeText, useCaseText];
+                titles.push(parts3.filter(p => p).join(' ').trim().replace(/\s+/g, ' '));
+            }
 
-            // Strategy 3: Benefit-first (waterproof/durable lead)
+            // Strategy 4: Pack emphasis (for bulk value)
+            if (quantity) {
+                const parts4 = [brand, quantityText, design, materialText, productType, waterproofText, sizeText, useCaseText];
+                titles.push(parts4.filter(p => p).join(' ').trim().replace(/\s+/g, ' '));
+            }
+
+            // Strategy 5: Waterproof emphasis (key benefit first after brand)
             if (waterproof) {
-                titles.push(
-                    isSpanish
-                        ? `Calcomanías Impermeables ${design} ${materialText} - MadeToStick ${quantityText} ${sizeText} para ${useCaseText}`.trim().replace(/\s+/g, ' ')
-                        : `Waterproof ${design} ${materialText} Stickers - MadeToStick ${quantityText} ${sizeText} for ${useCaseText}`.trim().replace(/\s+/g, ' ')
-                );
+                const parts5 = [brand, waterproofText, design, materialText, productType, sizeText, quantityText, useCaseText];
+                titles.push(parts5.filter(p => p).join(' ').trim().replace(/\s+/g, ' '));
             }
 
-            // Strategy 4: Quantity-first (for value positioning)
-            if (quantity && selectedPositioning === 'value') {
-                titles.push(
-                    isSpanish
-                        ? `${quantityText} Calcomanías ${design} ${waterproofText} ${materialText} MadeToStick ${sizeText} para ${useCaseText}`.trim().replace(/\s+/g, ' ')
-                        : `${quantityText} ${design} Stickers ${waterproofText} ${materialText} - MadeToStick ${sizeText} for ${useCaseText}`.trim().replace(/\s+/g, ' ')
-                );
-            }
-
-            // Strategy 5: Material-first (for specialty materials)
-            if (material === 'holographic' || material === 'puffy') {
-                titles.push(
-                    isSpanish
-                        ? `Calcomanías ${materialText} ${design} ${waterproofText} MadeToStick ${quantityText} ${sizeText}`.trim().replace(/\s+/g, ' ')
-                        : `${materialText} ${design} Stickers ${waterproofText} MadeToStick ${quantityText} ${sizeText} for ${useCaseText}`.trim().replace(/\s+/g, ' ')
-                );
-            }
-
-            // Strategy 6: Use case dominant
+            // Strategy 6: Use case specific (when important)
             if (useCase && useCase !== 'general') {
-                titles.push(
-                    isSpanish
-                        ? `Calcomanías para ${useCaseText} - ${design} ${waterproofText} ${materialText} MadeToStick ${quantityText}`.trim().replace(/\s+/g, ' ')
-                        : `${useCaseText} Stickers - ${design} ${waterproofText} ${materialText} MadeToStick Brand ${quantityText}`.trim().replace(/\s+/g, ' ')
-                );
+                const parts6 = [brand, design, productType, waterproofText, materialText, sizeText, quantityText, useCaseText];
+                titles.push(parts6.filter(p => p).join(' ').trim().replace(/\s+/g, ' '));
             }
 
-            // Strategy 7: Brand-first for premium
-            if (selectedPositioning === 'premium') {
-                titles.push(
-                    isSpanish
-                        ? `MadeToStick | Calcomanías Premium ${design} ${materialText} ${waterproofText} ${sizeText} ${quantityText}`.trim().replace(/\s+/g, ' ')
-                        : `MadeToStick Brand | Premium ${design} ${materialText} Stickers ${waterproofText} ${sizeText} ${quantityText}`.trim().replace(/\s+/g, ' ')
-                );
-            }
+            // Remove duplicates
+            const uniqueTitles = [...new Set(titles)].filter(t => t.length > 0);
 
-            displayResults(titles.filter(t => t.length > 0));
+            displayResults(uniqueTitles);
         }
 
         function getSEOScore(title) {
-            let score = 0;
+            let score = 100; // Start at perfect, deduct for violations
+            const violations = [];
             
-            if (title.toLowerCase().includes('madetostick')) score += 20;
+            // CRITICAL: Brand must be first (Amazon requirement)
+            if (!title.toLowerCase().startsWith('madetostick')) {
+                score -= 30;
+                violations.push('Brand not first');
+            }
             
+            // RECOMMENDED: 80 chars or less for mobile (Amazon guideline)
+            if (title.length > 80) {
+                score -= 10;
+                violations.push(`${title.length} chars (80+ truncates on mobile)`);
+            }
+            
+            // Check for prohibited special characters (!, $, ?, _, {, }, ^, ¬, ¦, |)
+            const prohibitedChars = /[!$?_{}^¬¦|]/;
+            if (prohibitedChars.test(title)) {
+                score -= 20;
+                violations.push('Prohibited special character');
+            }
+            
+            // Check for word repetition (no word more than twice)
+            const words = title.toLowerCase().split(/\s+/);
+            const wordCount = {};
+            words.forEach(word => {
+                wordCount[word] = (wordCount[word] || 0) + 1;
+            });
+            const repeated = Object.entries(wordCount).filter(([word, count]) => 
+                count > 2 && word !== 'for' && word !== 'and' && word !== 'the'
+            );
+            if (repeated.length > 0) {
+                score -= 15;
+                violations.push(`Word repetition: ${repeated[0][0]}`);
+            }
+            
+            // Bonus: Key product term in first 50 chars
             const first50 = title.slice(0, 50).toLowerCase();
-            if (first50.includes('sticker') || first50.includes('calcomanía')) score += 25;
+            if (first50.includes('sticker') || first50.includes('calcomanía')) {
+                score += 5;
+            }
             
-            if (title.toLowerCase().includes('waterproof') || title.toLowerCase().includes('impermeable')) score += 15;
+            // Bonus: Waterproof mentioned (trust signal)
+            if (title.toLowerCase().includes('waterproof') || title.toLowerCase().includes('impermeable')) {
+                score += 5;
+            }
             
-            const first100 = title.slice(0, 100).toLowerCase();
-            if (Object.keys(materialOptions).some(mat => first100.includes(mat.toLowerCase()))) score += 15;
-            
-            if (Object.values(useCaseOptions).some(uc => title.toLowerCase().includes(uc.toLowerCase()))) score += 15;
-            
-            if (title.length >= 50 && title.length <= 200) score += 10;
-            
-            return score;
+            return { score: Math.max(0, Math.min(100, score)), violations };
         }
 
         function displayResults(titles) {
@@ -838,10 +831,12 @@
             const html = `
                 <div class="results-container">
                     ${titles.map((title, index) => {
-                        const mobilePreview = title.slice(0, 150);
-                        const rest = title.slice(150);
-                        const seoScore = getSEOScore(title);
-                        const seoClass = seoScore >= 80 ? 'badge-seo-high' : seoScore >= 60 ? 'badge-seo-med' : 'badge-seo-low';
+                        const mobilePreview = title.slice(0, 80);
+                        const rest = title.slice(80);
+                        const scoreData = getSEOScore(title);
+                        const score = scoreData.score;
+                        const violations = scoreData.violations;
+                        const seoClass = score >= 90 ? 'badge-seo-high' : score >= 70 ? 'badge-seo-med' : 'badge-seo-low';
                         
                         return `
                             <div class="title-card">
@@ -852,7 +847,9 @@
                                 <div class="title-metrics">
                                     <div class="metrics-badges">
                                         <span class="badge badge-chars">${title.length} chars</span>
-                                        <span class="badge ${seoClass}">SEO: ${seoScore}%</span>
+                                        <span class="badge ${seoClass}">
+                                            ${score >= 90 ? '✓ Amazon Compliant' : `Score: ${score}%`}
+                                        </span>
                                     </div>
                                     
                                     <button class="copy-btn" onclick="copyTitle('${title.replace(/'/g, "\\'")}', ${index})">
@@ -863,10 +860,15 @@
                                     </button>
                                 </div>
                                 
-                                ${rest ? `
+                                ${violations.length > 0 ? `
+                                    <div class="mobile-indicator" style="background: #fef3c7; border: 1px solid #fbbf24;">
+                                        <div class="mobile-indicator-dot" style="background: #f59e0b;"></div>
+                                        ⚠️ ${violations.join(' • ')}
+                                    </div>
+                                ` : title.length > 80 ? `
                                     <div class="mobile-indicator">
                                         <div class="mobile-indicator-dot"></div>
-                                        First 150 chars shown in pink = mobile view
+                                        First 80 chars (pink) = Amazon mobile view
                                     </div>
                                 ` : ''}
                             </div>
